@@ -14,8 +14,8 @@ import sys
 import tkinter as tk
 import types
 import webbrowser
+import shoebot
 from .about_plugin import add_about_shoebot_command, open_about_plugin
-from .install_jdk import install_jdk
 from distutils.sysconfig import get_python_lib
 from importlib import machinery, util
 from thonny import editors, get_workbench, get_runner, running, token_utils
@@ -37,8 +37,8 @@ _PY5_IMPORTED_MODE = 'run.py5_imported_mode'
 color_selector_open = False
 
 
-def apply_recommended_py5_config() -> None:
-    '''apply some recommended settings for thonny py5 work'''
+def apply_recommended_shoebot_config() -> None:
+    '''apply some recommended settings for thonny shoebot work'''
     get_workbench().set_option('view.ui_theme', 'Kyanite UI')
     get_workbench().set_option('view.syntax_theme', 'Kyanite Syntax')
     get_workbench().set_option('view.highlight_current_line', 'True')
@@ -59,9 +59,11 @@ def execute_imported_mode() -> None:
         editors.Editor.save_file(current_editor)
         current_file = current_editor.get_filename()
 
-    if current_file and current_file.split('.')[-1] in ('py', 'py5', 'pyde'):
+    if current_file and current_file.split('.')[-1] in ('bot'):
         # save and run py5 imported mode
         current_editor.save_file()
+
+        '''
         user_packages = str(site.getusersitepackages())
         site_packages = str(site.getsitepackages()[0])
         plug_packages = util.find_spec('py5_tools').submodule_search_locations
@@ -77,6 +79,7 @@ def execute_imported_mode() -> None:
             if location.is_file():
                 run_sketch = location
                 break
+        '''
 
         # if display window location unspecified, set it to (50, 50)
         if get_workbench().get_option('run.py5_location') is None:
@@ -87,12 +90,17 @@ def execute_imported_mode() -> None:
         py5_switches = '--py5_options external location=' + py5_loc
 
         # run command to execute sketch
+        # shoebot.run(current_file)
+        import subprocess
+        subprocess.call(['sbot', '-w', current_file])
+        '''
         working_directory = os.path.dirname(current_file)
         cd_cmd_line = running.construct_cd_command(working_directory) + '\n'
         cmd_parts = ['%Run', str(run_sketch), current_file]
         exe_cmd_line = running.construct_cmd_line(cmd_parts) + ' '
         exe_cmd_line += py5_switches + '\n'
         running.get_shell().submit_magic_command(cd_cmd_line + exe_cmd_line)
+        '''
 
 
 def patched_execute_current(self: Runner, command_name: str) -> None:
@@ -102,6 +110,7 @@ def patched_execute_current(self: Runner, command_name: str) -> None:
 
 def patch_token_coloring() -> None:
     '''add py5 keywords to syntax highlighting'''
+    # TODO: change to use shoebot functions, right now this is not called
     spec = util.find_spec('py5_tools')
     # cannot use `dir(py5)` because of jvm check, hence direct loading
     path = pathlib.Path(spec.submodule_search_locations[0]) / 'reference.py'
@@ -271,7 +280,7 @@ def load_plugin() -> None:
       group=40
     )
     add_about_shoebot_command(50)
-    patch_token_coloring()
+    # patch_token_coloring()
     set_py5_imported_mode()
 
     # note that _handle_program_output is not a public api

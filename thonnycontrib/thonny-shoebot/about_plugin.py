@@ -6,7 +6,6 @@ import sys
 import platform
 import tkinter as tk
 import webbrowser
-from jpype._jvmfinder import JVMNotFoundException
 from tkinter import ttk
 from thonny import get_version, get_workbench, ui_utils
 from thonny.common import get_python_version_string
