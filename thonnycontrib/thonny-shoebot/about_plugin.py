@@ -1,5 +1,5 @@
-'''about thonny-py5mode window
-   accessed via the menu: py5 > about thonny-py5mode
+'''about thonny-shoebot window
+   accessed via the menu: shoebot > about thonny-shoebot
 '''
 
 import sys
@@ -14,7 +14,7 @@ from thonny.languages import tr
 from ._version import __version__
 
 
-_PY5_VERSION = 'version details in Tools > Manage plug-ins'
+_SHOEBOT_VERSION = 'version details in Tools > Manage plug-ins'
 
 
 def get_os_word_size_guess() -> None:
@@ -35,7 +35,7 @@ class AboutDialog(ui_utils.CommonDialog):
         main_frame.grid(sticky=tk.NSEW, ipadx=15, ipady=15)
         main_frame.rowconfigure(0, weight=1)
         main_frame.columnconfigure(0, weight=1)
-        self.title(tr('About thonny-py5mode'))
+        self.title(tr('About thonny-shoebot'))
         self.resizable(height=tk.FALSE, width=tk.FALSE)
         self.protocol('WM_DELETE_WINDOW', self._ok)
         # heading
@@ -43,13 +43,13 @@ class AboutDialog(ui_utils.CommonDialog):
         heading_font.configure(size=14, weight='bold')
         heading_label = ttk.Label(
           main_frame,
-          text='thonny-py5mode\n' + __version__,
+          text='thonny-shoebot\n' + __version__,
           font=heading_font,
           justify='center'
         )
         heading_label.grid()
-        # thonny-py5mode url
-        url = 'https://github.com/tabreturn/thonny-py5mode'
+        # thonny-shoebot url
+        url = 'https://github.com/shoebot/thonny-shoebot'
         url_font = tk.font.nametofont('TkDefaultFont').copy()
         url_font.configure(underline=1)
         url_label = ttk.Label(
@@ -73,20 +73,20 @@ class AboutDialog(ui_utils.CommonDialog):
               + ' ' + platform.release()
               + ' ' + get_os_word_size_guess()
             )
-        # list system description and versions of python, py5, thonny
+        # list system description and versions of python, shoebot, thonny
         platform_label = ttk.Label(
           main_frame,
           justify=tk.CENTER,
           text=system_desc
           + '\n Python ' + get_python_version_string(maxsize=sys.maxsize)
-          + '\n py5 ' + _PY5_VERSION
+          + '\n shoebot ' + _SHOEBOT_VERSION
           + '\n Thonny ' + get_version()
         )
         platform_label.grid()
         # credits
         credits_label = ttk.Label(
           main_frame,
-          text=tr('Built with py5'),
+          text=tr('Built with shoebot'),
           style='Url.TLabel',
           cursor='hand2',
           font=url_font,
@@ -95,7 +95,7 @@ class AboutDialog(ui_utils.CommonDialog):
         credits_label.grid()
         credits_label.bind(
             '<Button-1>',
-            lambda _: webbrowser.open('https://py5.ixora.io/'),
+            lambda _: webbrowser.open('https://shoebot.net/'),
         )
         credits_label.grid(pady=20)
         # buttons
@@ -116,16 +116,16 @@ class AboutDialog(ui_utils.CommonDialog):
 
 
 def open_about_plugin() -> None:
-    '''call to display about thonny-py5mode window'''
+    '''call to display about thonny-shoebot window'''
     ui_utils.show_dialog(AboutDialog(get_workbench()))
 
 
-def add_about_py5mode_command(group: int) -> None:
-    '''add about thonny-py5mode to py5 menu'''
+def add_about_shoebot_command(group: int) -> None:
+    '''add about thonny-shoebot to shoebot menu'''
     get_workbench().add_command(
-      'about_thonny-py5mode',
-      'py5',
-      tr('About thonny-py5mode'),
+      'about_thonny-shoebot',
+      'shoebot',
+      tr('About thonny-shoebot'),
       open_about_plugin,
       group=group
     )

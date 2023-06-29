@@ -1,5 +1,5 @@
-'''thonny-py5mode frontend
-   interacts with py5mode backend (backend > py5_imported_mode_backend.py)
+'''thonny-shoebot frontend
+   interacts with shoebot backend (backend > py5_imported_mode_backend.py)
 '''
 
 import builtins
@@ -14,7 +14,7 @@ import sys
 import tkinter as tk
 import types
 import webbrowser
-from .about_plugin import add_about_py5mode_command, open_about_plugin
+from .about_plugin import add_about_shoebot_command, open_about_plugin
 from .install_jdk import install_jdk
 from distutils.sysconfig import get_python_lib
 from importlib import machinery, util
@@ -29,7 +29,7 @@ try:  # thonny 4 package layout
 except ImportError:  # thonny 3 package layout
     pass
 # modified tkcolorpicker (by j4321) to work with thonny for macos
-# https://github.com/tabreturn/thonny-py5mode-tkcolorpicker
+# https://github.com/tabreturn/thonny-shoebot-tkcolorpicker
 from .py5colorpicker.tkcolorpicker import modeless_colorpicker
 
 
@@ -122,8 +122,11 @@ def set_py5_imported_mode() -> None:
     else:
         p_i_m = str(get_workbench().get_option(_PY5_IMPORTED_MODE))
         os.environ['PY5_IMPORTED_MODE'] = p_i_m
+        Runner._original_execute_current = Runner.execute_current
+        Runner.execute_current = patched_execute_current
 
         # switch on/off py5 run button behavior
+        '''
         if get_workbench().get_option(_PY5_IMPORTED_MODE):
             Runner._original_execute_current = Runner.execute_current
             Runner.execute_current = patched_execute_current
@@ -140,6 +143,7 @@ def set_py5_imported_mode() -> None:
                 get_runner().restart_backend(False)
             except AttributeError:
                 pass
+        '''
 
 
 def toggle_py5_imported_mode() -> None:
@@ -229,44 +233,44 @@ def load_plugin() -> None:
       group=10
     )
     get_workbench().add_command(
-      'apply_recommended_py5_config',
-      'py5',
-      tr('Apply recommended py5 settings'),
-      apply_recommended_py5_config,
+      'apply_recommended_shoebot_config',
+      'shoebot',
+      tr('Apply recommended shoebot settings'),
+      apply_recommended_shoebot_config,
       group=20
     )
     get_workbench().add_command(
       'py5_color_selector',
-      'py5',
+      'shoebot',
       tr('Color selector'),
       color_selector,
       group=30,
       default_sequence='<Alt-c>'
     )
     get_workbench().add_command(
-      'py5_reference',
-      'py5',
-      tr('py5 reference'),
-      lambda: webbrowser.open('https://py5.ixora.io/reference/sketch.html'),
+      'shoebot_reference',
+      'shoebot',
+      tr('shoebot reference'),
+      lambda: webbrowser.open('https://docs.shoebot.net/commands.html'),
       group=30
     )
-    git_raw_user = 'https://raw.githubusercontent.com/tabreturn/'
+    git_raw_user = 'https://raw.githubusercontent.com/shoebot/'
     git_asset_path = 'processing.py-cheat-sheet/master/py5/py5_cc.pdf'
     get_workbench().add_command(
-      'py5_cheatsheet',
-      'py5',
-      tr('py5 cheatsheet'),
+      'shoebot_cheatsheet',
+      'shoebot',
+      tr('shoebot cheatsheet'),
       lambda: webbrowser.open(git_raw_user + git_asset_path),
       group=30
     )
     get_workbench().add_command(
       'open_folder',
-      'py5',
+      'shoebot',
       tr('Show sketch folder'),
       show_sketch_folder,
       group=40
     )
-    add_about_py5mode_command(50)
+    add_about_shoebot_command(50)
     patch_token_coloring()
     set_py5_imported_mode()
 
