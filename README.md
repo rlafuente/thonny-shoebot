@@ -1,8 +1,8 @@
-# thonny-py5mode
+# thonny-shoebot
 
-*A py5 plug-in for Thonny*
+*A Shoebot plug-in for Thonny*
 
-Use the [Thonny Python IDE](https://thonny.org/) as a Processing PDE alternative for creative coding. *Thonny-py5mode* is a plug-in that installs and configures Thonny for use with [py5](http://py5.ixora.io/), a Python (3.8+) framework that leverages Processing's core libraries.
+Use the [Thonny Python IDE](https://thonny.org/) as an editor for [Shoebot](https://shoebot.net) scripts. *Thonny-shoebot* is a plug-in that configures Thonny for use with Shoebot, a Python (3.8+) framework for creative coding vector graphics and animations using a set of simple Python commands.
 
 
 ## Instructions
@@ -19,7 +19,7 @@ If you already have some version of Thonny *that includes Python 3.8+* on your c
     - [thonny-4.0.0b3.pkg](https://github.com/thonny/thonny/releases/download/v4.0.0b3/thonny-4.0.0b3.pkg) 🢠 for MacOS
     - [thonny-4.0.0b3-x86_64.tar.gz](https://github.com/thonny/thonny/releases/download/v4.0.0b3/thonny-4.0.0b3-x86_64.tar.gz) 🢠 for Linux
    
-   The thonny-py5mode plug-in will run fine with Thonny 4 (currently in beta) because it ships with Python 3.10. If you want to use a Thonny 3 release, use the [Thonny 3.3.7](https://github.com/thonny/thonny/releases/tag/v3.3.7) *-alt* version for your platform. The alt-variants are bundled with Python 3.9.5 (instead of 3.7.9).
+   The thonny-shoebot plug-in will run fine with Thonny 4 (currently in beta) because it ships with Python 3.10. If you want to use a Thonny 3 release, use the [Thonny 3.3.7](https://github.com/thonny/thonny/releases/tag/v3.3.7) *-alt* version for your platform. The alt-variants are bundled with Python 3.9.5 (instead of 3.7.9).
 
    
 
@@ -31,7 +31,7 @@ If you already have some version of Thonny *that includes Python 3.8+* on your c
 
    ![](https://raw.githubusercontent.com/tabreturn/thonny-py5mode/main/screenshots/03.01-manage-plug-ins.png)
 
-   Then search for and install the __thonny-py5mode__ plug-in --
+   Then search for and install the __thonny-shoebot__ plug-in --
 
    ![](https://raw.githubusercontent.com/tabreturn/thonny-py5mode/main/screenshots/03.02-install-plug-in.png)
 
@@ -73,26 +73,6 @@ If you already have some version of Thonny *that includes Python 3.8+* on your c
    NOTE: This mode also runs [static mode](https://py5.ixora.io/content/py5_modes.html#static-mode) sketches (when you don't need a `draw()` function for animation).
 
    Click the stop-sign (🛑) button in the Thonny toolbar to stop your sketch.
-
-
-## Module Mode Sketches
-
-To run a py5 [module mode](https://py5.ixora.io/content/py5_modes.html#module-mode) sketch, deactivate/uncheck *py5 > Imported mode for py5* first so that Thonny returns to its normal run behaviour (for running any Python script). As an example, you can try this code:
-
-```python
-import py5
-
-def setup():
-    py5.size(300, 200)
-    py5.rect_mode(py5.CENTER)
-
-def draw():
-    py5.square(py5.mouse_x, py5.mouse_y, 10)
-
-py5.run_sketch()
-```
-
-Note that module mode requires an `import py5` and `run_sketch()` line, and `py5.` prefixes.
 
 
 ## Useful py5 resources
