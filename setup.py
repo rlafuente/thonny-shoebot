@@ -24,7 +24,6 @@ setup(
     'Topic :: Text Editors :: Integrated Development Environments (IDE)'
   ],
   packages=[
-    'thonnycontrib.backend',
     'thonnycontrib.kyanite_theme_syntax',
     'thonnycontrib.kyanite_theme_ui',
     'thonnycontrib.thonny-shoebot',
@@ -32,6 +31,7 @@ setup(
   ],
   install_requires=[
     'shoebot==1.4',
-    'pyclip==0.7.0'
+    'pyclip==0.7.0',
+    'pyperclip'
   ]
 )
